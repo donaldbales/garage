@@ -51,7 +51,7 @@ class Data:
 
 one_minute_before = (4, 9, 14, 19, 24, 29, 34, 39, 44, 49, 54, 59)
 on_five_minutes = (0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55)
-thermometers = ('28-395dd4461902')
+#thermometers = ('28-395dd4461902')
 thermometer_dir = '/sys/bus/w1/devices/'
 
 def rpi_temp():
@@ -117,19 +117,20 @@ try:
         data = Data(dt)
         #print(str(data.sample_date), flush=True)
         data.temp_rpi = rpi_temp()
-        for i in range(1):
-            thermometer = thermometers[i]
-            try:
-                c, f = read_temp(thermometer)
-            except Exception as error:
-                c = None
-                f = None
-                print('Error reading thermometer ' + str(i) + ' ' + thermometer + ': ' + str(error), flush=True)
-                print('Error reading thermometer ' + str(i) + ' ' + thermometer + ': ' + str(error), file=sys.stderr, flush=True)
-            #print(thermometer, c, f, flush=True)
-            match thermometer:
-                case '28-395dd4461902':
-                    data.temp_garage = f
+#        for i in range(1):
+#            thermometer = thermometers[i]
+        thermometer = '28-395dd4461902'
+        try:
+            c, f = read_temp(thermometer)
+        except Exception as error:
+            c = None
+            f = None
+            print('Error reading thermometer ' + str(i) + ' ' + thermometer + ': ' + str(error), flush=True)
+            print('Error reading thermometer ' + str(i) + ' ' + thermometer + ': ' + str(error), file=sys.stderr, flush=True)
+        #print(thermometer, c, f, flush=True)
+        match thermometer:
+            case '28-395dd4461902':
+                data.temp_garage = f
         print(data.to_json(), flush=True)
 
         if (dt.minute in on_five_minutes and \
