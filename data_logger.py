@@ -117,7 +117,7 @@ try:
         data = Data(dt)
         #print(str(data.sample_date), flush=True)
         data.temp_rpi = rpi_temp()
-        for i in range(5):
+        for i in range(1):
             thermometer = thermometers[i]
             try:
                 c, f = read_temp(thermometer)
